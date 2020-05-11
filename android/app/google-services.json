@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "826603909507",
+    "firebase_url": "https://doeat-8da9a.firebaseio.com",
+    "project_id": "doeat-8da9a",
+    "storage_bucket": "doeat-8da9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826603909507:android:35bf4c46785aa30a3086b6",
+        "android_client_info": {
+          "package_name": "sanketvekariya.doeat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826603909507-m3jb0hvvvsr631q5c7q166d9gam6nile.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkSNVG4A_6_tvYymM6qsjnpP3Q6ObbEJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826603909507-m3jb0hvvvsr631q5c7q166d9gam6nile.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
