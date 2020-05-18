@@ -1,14 +1,16 @@
-import 'package:doeat/app.dart';
+import 'package:doeat/Provider/mapProvider.dart';
+import 'package:doeat/Screen/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:doeat/map_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
@@ -23,8 +25,14 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
             brightness: Brightness.dark,
+            textTheme: GoogleFonts.aBeeZeeTextTheme(
+              Theme.of(context).textTheme.apply(
+                    bodyColor: Colors.white,
+                    displayColor: Colors.white,
+                  ),
+            ),
           ),
-          home: App(),
+          home: SplashScreen(),
         ));
   }
 }

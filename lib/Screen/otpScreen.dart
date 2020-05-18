@@ -1,12 +1,16 @@
-import 'package:doeat/faderoure.dart';
-import 'package:doeat/home.dart';
-import 'package:doeat/otp_input.dart';
+import 'package:doeat/Provider/mapProvider.dart';
+import 'package:doeat/Screen/homeScreen.dart';
+import 'package:doeat/Utils/AlertDialog/dialog_button.dart';
+import 'package:doeat/Utils/fadePageRoute.dart';
+import 'package:doeat/Utils/otpInputField.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
+
   OTPScreen({
     Key key,
     @required this.mobileNumber,
@@ -34,19 +38,30 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("isValid - $isCodeSent");
-    print("mobiel ${widget.mobileNumber}");
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    return Container(
+      constraints: const BoxConstraints.expand(),
+      decoration: const BoxDecoration(
+          image: const DecorationImage(
+              image: const AssetImage("assets/images/background.jpg"),
+              fit: BoxFit.cover,
+              colorFilter:
+                  const ColorFilter.mode(Colors.black26, BlendMode.softLight))),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: Colors.transparent,
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "OTP Sent To: ${widget.mobileNumber}",
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "OTP Sent To: ${widget.mobileNumber}",
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -66,19 +81,17 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Center(
                 child: SizedBox(
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
+                  child: DialogButton(
+                    width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
                       "LOGIN",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     onPressed: () {
                       if (_pinEditingController.text.length == 6) {
@@ -88,7 +101,12 @@ class _OTPScreenState extends State<OTPScreen> {
                         showToast("ENTER OTP PROPERLY", Colors.red);
                       }
                     },
-                    padding: EdgeInsets.all(16.0),
+                    gradient: const LinearGradient(
+                      colors: [
+                        const Color.fromRGBO(116, 116, 191, 1.0),
+                        const Color.fromRGBO(52, 138, 199, 1.0),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -100,7 +118,6 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   void showToast(message, Color color) {
-    print(message);
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_LONG,
@@ -122,11 +139,11 @@ class _OTPScreenState extends State<OTPScreen> {
           .signInWithCredential(phoneAuthCredential)
           .then((AuthResult value) {
         if (value.user != null) {
-          print(value.user.phoneNumber);
+          context.read<MapProvider>().setFireBaseUser(value.user);
           Navigator.pushAndRemoveUntil(
               context,
-              FadeRoute(
-                page: HomePage(
+              FadePageRoute(
+                page: HomeScreen(
                   user: value.user,
                 ),
               ),
@@ -179,11 +196,10 @@ class _OTPScreenState extends State<OTPScreen> {
         .signInWithCredential(_authCredential)
         .then((AuthResult value) {
       if (value.user != null) {
-        print(value.user.phoneNumber);
         Navigator.pushAndRemoveUntil(
             context,
-            FadeRoute(
-              page: HomePage(
+            FadePageRoute(
+              page: HomeScreen(
                 user: value.user,
               ),
             ),

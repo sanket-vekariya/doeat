@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// insert data in fireStore Database
 Future insertData(
     {bool isAvailable,
     FirebaseUser user,
@@ -39,6 +40,7 @@ Future insertData(
       foodCount: foodCount);
 }
 
+// add in shared preference
 addInSharedPreference(
     {bool isAvailable,
     FirebaseUser user,
@@ -61,6 +63,7 @@ addInSharedPreference(
   preferences.setBool('isAvailable', isAvailable);
 }
 
+// get data from fireStore
 Future<List<DocumentSnapshot>> getData() async {
   final QuerySnapshot result =
       await Firestore.instance.collection('data').getDocuments();
@@ -68,6 +71,7 @@ Future<List<DocumentSnapshot>> getData() async {
   return documents ?? [];
 }
 
+// delete data in fireStore database
 Future deleteData({FirebaseUser user}) async {
   var documentReference =
       Firestore.instance.collection('data').document(user.uid);

@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:doeat/faderoure.dart';
-import 'package:doeat/home.dart';
-import 'package:doeat/phone_auth.dart';
+import 'package:doeat/Screen/homeScreen.dart';
+import 'package:doeat/Screen/phoneAuthScreen.dart';
+import 'package:doeat/Utils/fadePageRoute.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class App extends StatefulWidget {
-  App({Key key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  SplashScreen({Key key}) : super(key: key);
 
   @override
-  _AppState createState() => _AppState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _AppState extends State<App>
+class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   var _visible = true;
   final int splashDuration = 2;
@@ -66,8 +66,8 @@ class _AppState extends State<App>
         if (currentUser != null) {
           Navigator.pushReplacement(
             context,
-            FadeRoute(
-              page: HomePage(
+            FadePageRoute(
+              page: HomeScreen(
                 user: currentUser,
               ),
             ),
@@ -75,7 +75,7 @@ class _AppState extends State<App>
         } else {
           Navigator.pushReplacement(
             context,
-            FadeRoute(page: PhoneLogin()),
+            FadePageRoute(page: PhoneAuthScreen()),
           );
         }
       },
@@ -86,6 +86,12 @@ class _AppState extends State<App>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: const BoxDecoration(
+            image: const DecorationImage(
+                image: const AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: const ColorFilter.mode(
+                    Colors.black26, BlendMode.softLight))),
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
@@ -94,11 +100,12 @@ class _AppState extends State<App>
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
+                  padding: const EdgeInsets.only(bottom: 30.0),
                   child: Image.asset(
-                    'assets/images/glogo.png',
-                    height: 25.0,
+                    'assets/images/logo_text.png',
+                    height: 100.0,
                     fit: BoxFit.scaleDown,
+                    color: Colors.white,
                   ),
                 )
               ],
@@ -107,9 +114,10 @@ class _AppState extends State<App>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  'assets/images/glogo.png',
-                  width: animation.value * 250,
-                  height: animation.value * 250,
+                  'assets/images/logo.png',
+                  color: Colors.white,
+                  width: animation.value * 100,
+                  height: animation.value * 100,
                 ),
               ],
             ),

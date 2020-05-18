@@ -1,7 +1,7 @@
-import 'package:doeat/AlertDialog/alert_style.dart';
-import 'package:doeat/AlertDialog/animation_transition.dart';
-import 'package:doeat/AlertDialog/constants.dart';
-import 'package:doeat/AlertDialog/dialog_button.dart';
+import 'package:doeat/Utils/AlertDialog/alert_style.dart';
+import 'package:doeat/Utils/AlertDialog/animation_transition.dart';
+import 'package:doeat/Utils/AlertDialog/constants.dart';
+import 'package:doeat/Utils/AlertDialog/dialog_button.dart';
 import 'package:flutter/material.dart';
 
 class Alert {
@@ -59,8 +59,7 @@ class Alert {
           child: SingleChildScrollView(
             child: AlertDialog(
               elevation: 10,
-              backgroundColor: style.backgroundColor ??
-                  Theme.of(context).dialogBackgroundColor,
+              backgroundColor: Colors.transparent,
               shape: style.alertBorder ?? _defaultShape(),
               titlePadding: EdgeInsets.all(0.0),
               title: Container(
